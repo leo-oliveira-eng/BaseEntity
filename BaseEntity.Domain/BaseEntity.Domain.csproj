@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+	<PackageId>BaseEntity.Domain</PackageId>
+	<Version>1.0.0-pre-1</Version>
+	<Authors>leo.oliveira.eng@outlook.com</Authors>
+  </PropertyGroup>
+
+</Project>
