@@ -80,6 +80,8 @@ namespace
 ```
 
 
-## License
+## License [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fleo-oliveira-eng%2FBaseEntity.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fleo-oliveira-eng%2FBaseEntity?ref=badge_shield)
 
 The project is under MIT License, so it grants you permission to use, copy, and modify a piece of this software free of charge, as is, without restriction or warranty.
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fleo-oliveira-eng%2FBaseEntity.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fleo-oliveira-eng%2FBaseEntity?ref=badge_large)
