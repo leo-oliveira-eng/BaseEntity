@@ -9,8 +9,8 @@ env:
   DOTNET_CLI_TELEMETRY_OPTOUT: true
   
   PROJECT_PATH: 'BaseEntity.Domain/BaseEntity.Domain.csproj'
-  PACKAGE_OUTPUT_DIRECTORY: ${{ github.workspace }}\output
-  PROJECT_TESTS_PATH: 'BaseEntity.Domain.Tests\BaseEntity.Domain.Tests.csproj'
+  PACKAGE_OUTPUT_DIRECTORY: ${{ github.workspace }}/output
+  PROJECT_TESTS_PATH: 'BaseEntity.Domain.Tests/BaseEntity.Domain.Tests.csproj'
 
   PROJECT_NAME: BaseEntity.Domain
   NUGET_FEED: https://api.nuget.org/v3/index.json
@@ -18,10 +18,8 @@ env:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ ubuntu-latest, windows-latest, macos-latest ]
+    runs-on: ubuntu-latest
+
     steps:
     - name: 'Checkout'
       uses: actions/checkout@v2
@@ -38,18 +36,16 @@ jobs:
       run: dotnet build -c Release --no-restore
 
     - name: 'Test'
-      run: dotnet test -c Release
+      run: dotnet test -c Release {{ env.PROJECT_TESTS_PATH }}
 
     - name: 'Pack'
-      if: matrix.os == 'ubuntu-latest'
       run: dotnet pack ${{ env.PROJECT_PATH }} --no-restore --no-build -c Release --include-symbols --include-source --output ${{ env.PACKAGE_OUTPUT_DIRECTORY }}
 
     - name: Upload Artifact
-      if: matrix.os == 'ubuntu-latest'
       uses: actions/upload-artifact@v2
       with:
         name: nupkg
-        path: ${{ env.PACKAGE_OUTPUT_DIRECTORY }}\*.nupkg
+        path: ${{ env.PACKAGE_OUTPUT_DIRECTORY }}/*.nupkg
 
     - name: 'Push package'
-      run: dotnet nuget push ${{ env.PACKAGE_OUTPUT_DIRECTORY }}\*.nupkg -k ${{ secrets.NUGET_KEY }} -s ${{ env.NUGET_SOURCE_URL }}    
+      run: dotnet nuget push ${{ env.PACKAGE_OUTPUT_DIRECTORY }}/*.nupkg -k ${{ secrets.NUGET_KEY }} -s ${{ env.NUGET_SOURCE_URL }}    
