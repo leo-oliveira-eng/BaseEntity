@@ -3,10 +3,12 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
 	<PackageId>BaseEntity.Domain</PackageId>
-	<Version>1.0.0-pre-4</Version>
+	<Version>1.0.0-pre-5</Version>
 	<Authors>leo.oliveira.eng@outlook.com</Authors>
 	<PackageLicenseFile>License.txt</PackageLicenseFile>
 	<RepositoryUrl>https://github.com/leo-oliveira-eng/BaseEntity</RepositoryUrl>
+	<PackageProjectUrl>https://github.com/leo-oliveira-eng/BaseEntity</PackageProjectUrl>
+	<RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>
