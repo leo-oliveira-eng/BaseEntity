@@ -36,7 +36,7 @@ jobs:
       run: dotnet build -c Release --no-restore
 
     - name: 'Test'
-      run: dotnet test -c Release {{ env.PROJECT_TESTS_PATH }}
+      run: dotnet test -c Release ${{ env.PROJECT_TESTS_PATH }}
 
     - name: 'Pack'
       run: dotnet pack ${{ env.PROJECT_PATH }} --no-restore --no-build -c Release --include-symbols --include-source --output ${{ env.PACKAGE_OUTPUT_DIRECTORY }}
