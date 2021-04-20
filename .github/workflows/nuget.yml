@@ -10,7 +10,6 @@ env:
   
   PROJECT_PATH: 'BaseEntity.Domain/BaseEntity.Domain.csproj'
   PACKAGE_OUTPUT_DIRECTORY: ${{ github.workspace }}/output
-  PROJECT_TESTS_PATH: 'BaseEntity.Domain.Tests/BaseEntity.Domain.Tests.csproj'
 
   PROJECT_NAME: BaseEntity.Domain
   NUGET_FEED: https://api.nuget.org/v3/index.json
@@ -19,6 +18,9 @@ env:
   GITHUB_USER: leo-oliveira-eng
   GITHUB_TOKEN: ${{ secrets.PACK_TOKEN}}
   GITHUB_FEED: https://nuget.pkg.github.com/leo-oliveira-eng/
+
+  COVERLET_TOKEN: ${{ secrets.COVERLET_TOKEN }}
+  COVERLET_OUTPUT_PATH: BaseEntity.Domain.Tests/TestResults/coverage.info
 
 jobs:
   build:
@@ -42,7 +44,13 @@ jobs:
         run: dotnet build -c Release --no-restore
 
       - name: Test
-        run: dotnet test -c Release ${{ env.PROJECT_TESTS_PATH }}
+        run: dotnet test -c Release /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
+
+      - name: Publish coverage report to coveralls.io   
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ env.COVERLET_TOKEN }} 
+          path-to-lcov: ${{ env.COVERLET_OUTPUT_PATH }}
 
       - name: 'Pack'
         if: matrix.os == 'ubuntu-latest'

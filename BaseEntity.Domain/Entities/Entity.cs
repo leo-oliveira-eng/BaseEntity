@@ -30,6 +30,7 @@ namespace BaseEntity.Domain.Entities
 
         [Obsolete(ConstructorObsoleteMessage, true)]
         protected Entity() { }
+
         protected Entity(Guid code)
         {
             Code = code;
@@ -45,12 +46,8 @@ namespace BaseEntity.Domain.Entities
             LastUpdate = DateTime.Now;
         }
 
-        public void UpdateLastUpdatedDate()
-        {
-            LastUpdate = DateTime.Now;
-        }
+        public void UpdateLastUpdatedDate() => LastUpdate = DateTime.Now;
 
         #endregion
-
     }
 }
