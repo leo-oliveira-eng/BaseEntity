@@ -27,6 +27,11 @@ jobs:
     - name: Test
       run: dotnet test -c Release /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
 
+    - name: Test
+      run: dotnet test --no-build --verbosity normal --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+    - name: Codecov
+      uses: codecov/codecov-action@v1
+
     - name: Generate report
       run: OpenCover.Console.exe -register -target:"C:/Program Files/dotnet/dotnet.exe" -targetargs:"test ./BaseEntity.Domain.Tests/BaseEntity.Domain.Tests.csproj -c Release --no-build" -filter:"+[BaseEntity.Domain*]* -[BaseEntity.Domain.Tests]*" -output:".\MyProject_coverage.xml"
 
