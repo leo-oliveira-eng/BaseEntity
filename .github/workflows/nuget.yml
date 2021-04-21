@@ -44,16 +44,11 @@ jobs:
         run: dotnet build -c Release --no-restore
 
       - name: Test
-        run: dotnet test -c Release /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
-
-      - name: Generate report
-        run: OpenCover.Console.exe -register -target:"C:/Program Files/dotnet/dotnet.exe" -targetargs:"test ./BaseEntity.Domain.Tests/BaseEntity.Domain.Tests.csproj -c Release --no-build" -filter:"+[BaseEntity.Domain*]* -[BaseEntity.Domain.Tests]*" -output:".\MyProject_coverage.xml"
-
-      - name: Publish coverage report to coveralls.io   
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ env.COVERLET_TOKEN }}
-
+        run: dotnet test --no-build --verbosity normal --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+      
+      - name: Report code coverage
+        uses: codecov/codecov-action@v1
+      
       - name: 'Pack'
         if: matrix.os == 'ubuntu-latest'
         run: dotnet pack ${{ env.PROJECT_PATH }} --no-restore --no-build -c Release --include-symbols --include-source --output ${{ env.PACKAGE_OUTPUT_DIRECTORY }} -p:PackageVersion=$GITHUB_RUN_ID
