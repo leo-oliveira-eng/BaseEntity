@@ -10,7 +10,6 @@ env:
   
   PROJECT_PATH: 'BaseEntity.Domain/BaseEntity.Domain.csproj'
   PACKAGE_OUTPUT_DIRECTORY: ${{ github.workspace }}/output
-  PROJECT_TESTS_PATH: 'BaseEntity.Domain.Tests/BaseEntity.Domain.Tests.csproj'
 
   PROJECT_NAME: BaseEntity.Domain
   NUGET_FEED: https://api.nuget.org/v3/index.json
@@ -19,6 +18,9 @@ env:
   GITHUB_USER: leo-oliveira-eng
   GITHUB_TOKEN: ${{ secrets.PACK_TOKEN}}
   GITHUB_FEED: https://nuget.pkg.github.com/leo-oliveira-eng/
+
+  COVERLET_TOKEN: ${{ secrets.COVERLET_TOKEN }}
+  COVERLET_OUTPUT_PATH: BaseEntity.Domain.Tests/TestResults/coverage.info
 
 jobs:
   build:
@@ -36,13 +38,27 @@ jobs:
           dotnet-version: 3.1.x
 
       - name: 'Restore packages'
-        run: dotnet restore ${{ env.PROJECT_PATH }}
+        run: dotnet restore ${{ env.PROJECT_PATH }}        
+
+      - name: install open cover
+        run: choco install opencover.portable
+      
+      - name: install coveralls.net
+        run: dotnet tool install --global coveralls.net --version 3.0.0
 
       - name: Build
         run: dotnet build -c Release --no-restore
 
       - name: Test
-        run: dotnet test -c Release ${{ env.PROJECT_TESTS_PATH }}
+        run: dotnet test -c Release /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
+
+      - name: Generate report
+        run: OpenCover.Console.exe -register -target:"C:/Program Files/dotnet/dotnet.exe" -targetargs:"test ./BaseEntity.Domain.Tests/BaseEntity.Domain.Tests.csproj -c Release --no-build" -filter:"+[BaseEntity.Domain*]* -[BaseEntity.Domain.Tests]*" -output:".\MyProject_coverage.xml"
+
+      - name: Publish coverage report to coveralls.io   
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ env.COVERLET_TOKEN }}
 
       - name: 'Pack'
         if: matrix.os == 'ubuntu-latest'
