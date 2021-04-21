@@ -41,7 +41,7 @@ jobs:
         run: dotnet restore ${{ env.PROJECT_PATH }}        
 
       - name: install open cover
-        run: choco install opencover.portable
+        run: dotnet add package OpenCover --version 4.7.922
       
       - name: install coveralls.net
         run: dotnet tool install --global coveralls.net --version 3.0.0
