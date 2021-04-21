@@ -1,8 +1,6 @@
 name: .NET Core
 
 on:
-  push:
-    branches: [ develop, master ]
   pull_request:
     branches: [ develop, master ]
 
@@ -22,7 +20,10 @@ jobs:
       run: dotnet restore
 
     - name: Build
-      run: dotnet build
+      run: dotnet build -c Release --no-restore
 
     - name: Test
-      run: dotnet test -c Release /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
+      run: dotnet test --no-build --verbosity normal --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+
+    - name: Report code coverage
+      uses: codecov/codecov-action@v1
