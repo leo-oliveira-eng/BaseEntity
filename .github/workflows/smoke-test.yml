@@ -6,10 +6,6 @@ on:
   pull_request:
     branches: [ develop, master ]
 
-env:
-  COVERLET_TOKEN: ${{ secrets.COVERLET_TOKEN }}
-  COVERLET_OUTPUT_PATH: BaseEntity.Domain.Tests/TestResults/coverage.info
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -22,7 +18,7 @@ jobs:
       with:
         dotnet-version: 3.1.x
 
-    - name: Install dependencies
+    - name: dotnet restore
       run: dotnet restore
 
     - name: Build
@@ -30,9 +26,3 @@ jobs:
 
     - name: Test
       run: dotnet test -c Release /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
-
-    - name: Publish coverage report to coveralls.io
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ env.COVERLET_TOKEN }} 
-        path-to-lcov: ${{ env.COVERLET_OUTPUT_PATH}}
