@@ -38,7 +38,7 @@ jobs:
           dotnet-version: 3.1.x
 
       - name: 'Restore packages'
-        run: dotnet restore ${{ env.PROJECT_PATH }}
+        run: dotnet restore
 
       - name: Build
         run: dotnet build -c Release --no-restore
