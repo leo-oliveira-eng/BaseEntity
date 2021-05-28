@@ -6,7 +6,7 @@ namespace BaseEntity.Domain.Entities
     {
         #region Constants
 
-        protected const string ConstructorObsoleteMessage = "Created only for EF";
+        protected const string ConstructorObsoleteMessage = "Only for Entity Framework";
 
         #endregion
 
