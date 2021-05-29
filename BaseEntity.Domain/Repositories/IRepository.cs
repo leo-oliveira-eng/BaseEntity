@@ -12,10 +12,18 @@ namespace BaseEntity.Domain.Repositories
 
         Task<Maybe<T>> FindAsync(Guid code);
 
+        Task<List<T>> FindAsync(List<Guid> codes);
+
         Task AddAsync(T entity);
+
+        Task AddAsync(List<T> entities);
 
         Task RemoveAsync(T entity);
 
+        Task RemoveAsync(List<T> entities);
+
         Task UpdateAsync(T entity);
+
+        Task UpdateAsync(List<T> entities);
     }
 }
