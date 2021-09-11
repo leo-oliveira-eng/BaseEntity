@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BaseEntity.Domain.Events;
+using System;
+using System.Collections.Generic;
 
 namespace BaseEntity.Domain.Entities
 {
@@ -6,7 +8,13 @@ namespace BaseEntity.Domain.Entities
     {
         #region Constants
 
-        protected const string ConstructorObsoleteMessage = "Created only for EF";
+        protected const string ConstructorObsoleteMessage = "Only for Entity Framework";
+
+        #endregion
+
+        #region Fields
+
+        private readonly List<DomainEvent> _domainEvents = new List<DomainEvent>();
 
         #endregion
 
@@ -24,12 +32,15 @@ namespace BaseEntity.Domain.Entities
 
         public bool Deleted => DeletedAt.HasValue;
 
+        public IReadOnlyCollection<DomainEvent> DomainEvents => _domainEvents.AsReadOnly();
+
         #endregion
 
         #region Constructors
 
         [Obsolete(ConstructorObsoleteMessage, true)]
         protected Entity() { }
+
         protected Entity(Guid code)
         {
             Code = code;
@@ -45,12 +56,14 @@ namespace BaseEntity.Domain.Entities
             LastUpdate = DateTime.Now;
         }
 
-        public void UpdateLastUpdatedDate()
-        {
-            LastUpdate = DateTime.Now;
-        }
+        public void UpdateLastUpdatedDate() => LastUpdate = DateTime.Now;
+
+        public void AddDomainEvent(DomainEvent domainEvent) => _domainEvents.Add(domainEvent);
+
+        public void RemoveDomainEvent(DomainEvent domainEvent) => _domainEvents.Remove(domainEvent);
+
+        public void ClearDomainEvents() => _domainEvents?.Clear();
 
         #endregion
-
     }
 }

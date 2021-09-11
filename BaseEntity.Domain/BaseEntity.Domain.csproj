@@ -1,15 +1,19 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
 	<PackageId>BaseEntity.Domain</PackageId>
-	<Version>1.0.0-pre-3</Version>
+	<Version>1.0.0-pre-5</Version>
 	<Authors>leo.oliveira.eng@outlook.com</Authors>
 	<PackageLicenseFile>License.txt</PackageLicenseFile>
+	<RepositoryUrl>https://github.com/leo-oliveira-eng/BaseEntity</RepositoryUrl>
+	<PackageProjectUrl>https://github.com/leo-oliveira-eng/BaseEntity</PackageProjectUrl>
+	<RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Message.Response.Maybe" Version="1.0.0-preview-1" />
+    <PackageReference Include="MediatR" Version="9.0.0" />
+    <PackageReference Include="Message.Response.Maybe" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>

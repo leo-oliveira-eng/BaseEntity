@@ -1,4 +1,4 @@
-# BaseEntity ![.NET Core](https://github.com/leo-oliveira-eng/BaseEntity/workflows/.NET%20Core/badge.svg) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md) [![NuGet](https://img.shields.io/nuget/vpre/BaseEntity.Domain)](https://www.nuget.org/packages/BaseEntity.Domain)
+# BaseEntity ![.NET Core](https://github.com/leo-oliveira-eng/BaseEntity/workflows/.NET%20Core/badge.svg) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md) [![NuGet](https://img.shields.io/nuget/vpre/BaseEntity.Domain)](https://www.nuget.org/packages/BaseEntity.Domain) [![codecov](https://codecov.io/gh/leo-oliveira-eng/BaseEntity/branch/master/graph/badge.svg?token=JH0QL5OG6K)](https://codecov.io/gh/leo-oliveira-eng/BaseEntity) [![CodeQL](https://github.com/leo-oliveira-eng/BaseEntity/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/leo-oliveira-eng/BaseEntity/actions/workflows/codeql-analysis.yml)
 
 Package to make easier the creation of entities by encapsulating basic properties and methods
 
