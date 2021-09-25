@@ -21,6 +21,12 @@ namespace BaseEntity.Domain.Mediator
             => await Mediator.Send(command);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public async virtual Task<TResponse> SendCommand<TRequest, TResponse>(TRequest command)
+            where TRequest : IRequest<TResponse>
+            where TResponse : class
+            => await Mediator.Send(command);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public async virtual Task PublishEvent<T>(T @event) where T : Event
             => await Mediator.Publish(@event);
     }
